@@ -1,7 +1,45 @@
 {{page-title "EmberAnimationModelRepro"}}
 
 {{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
+{{!-- <WelcomePage /> --}}
 {{!-- Feel free to remove this! --}}
+<p>
+  Starts at 2022, click 2008, then 1994 to see problem with
+  #animated-each over this.model
+</p>
+<button type="button" {{on "click" (fn this.changeYear "1957")}}>
+  1957
+</button>
+<button type="button" {{on "click" (fn this.changeYear "1972")}}>
+  1972
+</button>
+<button type="button" {{on "click" (fn this.changeYear "1974")}}>
+  1974
+</button>
+<button type="button" {{on "click" (fn this.changeYear "1994")}}>
+  1994
+</button>
+<button type="button" {{on "click" (fn this.changeYear "2008")}}>
+  2008
+</button>
+<button type="button" {{on "click" (fn this.changeYear "2022")}}>
+  2022 - no results
+</button>
 
+<h2>#animated-each over this.model</h2>
+<AnimatedContainer>
+  {{#animated-each this.model initialInsertion=true finalRemoval=true use=this.transition as |movie|}}
+    <div>
+      {{movie.title}} ({{movie.year}})
+    </div>
+  {{/animated-each}}
+</AnimatedContainer>
+<h2>#animated-each over this.model.toArray()</h2>
+<AnimatedContainer>
+  {{#animated-each this.modelAsArray initialInsertion=true finalRemoval=true use=this.transition as |movie|}}
+    <div>
+      {{movie.title}} ({{movie.year}})
+    </div>
+  {{/animated-each}}
+</AnimatedContainer>
 {{outlet}}
